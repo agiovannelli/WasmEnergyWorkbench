@@ -1,42 +1,73 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"syscall/js"
 )
 
-func prettyJson(input string) (string, error) {
-	var raw interface{}
-	if err := json.Unmarshal([]byte(input), &raw); err != nil {
-		return "", err
-	}
-	pretty, err := json.MarshalIndent(raw, "", "  ")
-	if err != nil {
-		return "", err
-	}
-	return string(pretty), nil
-}
+// Global variables
+const maximumCount int = 2147483647
+const completeString string = "Complete"
 
-func jsonWrapper() js.Func {
-	jsonFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		if len(args) != 1 {
-			return "Invalid no of arguments passed"
+// Array allocation wrapper function.
+func arrayAllocWrapper() js.Func {
+	arrayAllocFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		fmt.Println("Starting array allocation test...")
+		var arr [500000000]int
+
+		for i := 0; i < len(arr); i++ {
+			arr[i] = i
 		}
-		inputJSON := args[0].String()
-		fmt.Printf("input %s\n", inputJSON)
-		pretty, err := prettyJson(inputJSON)
-		if err != nil {
-			fmt.Printf("unable to convert to json %s\n", err)
-			return err.Error()
-		}
-		return pretty
+
+		fmt.Println("Completed array allocation test.")
+		return completeString
 	})
-	return jsonFunc
+
+	return arrayAllocFunc
 }
 
+// Maximum integer addition function.
+func additionTestWrapper() js.Func {
+	additionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		fmt.Println("Starting integer addition test...")
+		currentCount := 0
+
+		for i := 0; i < maximumCount; i++ {
+			currentCount++
+		}
+
+		fmt.Println("Completed integer addition test.")
+		return completeString
+	})
+
+	return additionFunc
+}
+
+// Array allocation with float division performing function.
+func floatDivisionWrapper() js.Func {
+	floatDivisionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		fmt.Println("Starting floating division test...")
+		var arr [500000000]float32
+
+		for i := 0; i < len(arr); i++ {
+			arr[i] = float32(i)
+		}
+
+		for i := 0; i < len(arr); i++ {
+			arr[i] = arr[i] / 3.1415
+		}
+
+		fmt.Println("Completed floating division test.")
+		return completeString
+	})
+
+	return floatDivisionFunc
+}
+
+// Main function.
 func main() {
-	fmt.Println("Hello, WebAssembly!")
-	js.Global().Set("formatJSON", jsonWrapper())
+	js.Global().Set("arrayTest", arrayAllocWrapper())
+	js.Global().Set("additionTest", additionTestWrapper())
+	js.Global().Set("floatDivisionTest", floatDivisionWrapper())
 	<-make(chan bool)
 }
