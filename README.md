@@ -1,6 +1,7 @@
 <h1>WebAssembly Energy Efficiency Repository</h1>
 <p>
     The code contained in this repository is meant to test WebAssembly across Go and Rust programming languages.
+    It additionally provides JavaScript equivalent code for baseline comparison.
     The intent of the functions within is to perform memory and computationally expensive processes in an effort
     to guage energy consumption from their respective execution. This is only a sandbox for local hosting.
 </p>
