@@ -5,6 +5,16 @@
     to guage energy consumption from their respective execution. This is only a sandbox for local hosting.
 </p>
 <h2>
+    Execution
+</h2>
+<h3>
+    GoLang
+</h3>
+<p>
+    To execute the GUI for GoLang WebAssembly testing purposes, navigate to cmd/server directory. Call 'go run main.go' to
+    have the localhost at port 8080 run functionality.
+</p>
+<h2>
     Helpful links
 </h2>
 <p>
