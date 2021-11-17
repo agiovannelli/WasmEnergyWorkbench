@@ -13,7 +13,7 @@ const completeString string = "Complete"
 func arrayAllocWrapper() js.Func {
 	arrayAllocFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		fmt.Println("Starting array allocation test...")
-		var arr [500000000]int
+		var arr [50000000]int
 
 		for i := 0; i < len(arr); i++ {
 			arr[i] = i
@@ -47,7 +47,7 @@ func additionTestWrapper() js.Func {
 func floatDivisionWrapper() js.Func {
 	floatDivisionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		fmt.Println("Starting floating division test...")
-		var arr [500000000]float32
+		var arr [50000000]float32
 
 		for i := 0; i < len(arr); i++ {
 			arr[i] = float32(i)
