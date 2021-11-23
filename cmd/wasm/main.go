@@ -64,10 +64,43 @@ func floatDivisionWrapper() js.Func {
 	return floatDivisionFunc
 }
 
+// Local bubble sort function.
+func BubbleSort(array []int64) []int64 {
+	for i := 0; i < len(array)-1; i++ {
+		for j := 0; j < len(array)-i-1; j++ {
+			if array[j] > array[j+1] {
+				array[j], array[j+1] = array[j+1], array[j]
+			}
+		}
+	}
+	return array
+}
+
+// Array allocation with float division performing function.
+func bubbleSortWrapper() js.Func {
+	floatDivisionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		fmt.Println("Starting bubble sort test...")
+		var arr [50000]int64
+		var arrLen int64 = int64(len(arr))
+
+		for i := 0; i < len(arr); i++ {
+			arr[i] = arrLen - int64(i)
+		}
+
+		BubbleSort(arr[:])
+
+		fmt.Println("Completed bubble sort test.")
+		return completeString
+	})
+
+	return floatDivisionFunc
+}
+
 // Main function.
 func main() {
 	js.Global().Set("arrayTest", arrayAllocWrapper())
 	js.Global().Set("additionTest", additionTestWrapper())
 	js.Global().Set("floatDivisionTest", floatDivisionWrapper())
+	js.Global().Set("bubbleSortTest", bubbleSortWrapper())
 	<-make(chan bool)
 }
