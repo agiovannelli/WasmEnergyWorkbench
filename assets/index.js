@@ -5,6 +5,26 @@ const maxInt = 2147483647;
 const arraySize = 50000000;
 const completed = 'Complete';
 
+
+/**  BEGIN PRIVATE METHODS **/
+function swap(arr, xp, yp){
+    var temp = arr[xp];
+    arr[xp] = arr[yp];
+    arr[yp] = temp;
+}
+
+function bSort(arr, n) {
+    var i, j;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr, j, j + 1);
+            }
+        }
+    }
+}
+/** END PRIVATE METHODS **/
+
 /**
  * JavaScript array allocation test.
  */
@@ -58,6 +78,24 @@ function jsFloatDivision() {
 }
 
 /**
+ * JavaScript array allocation and bubble sort.
+ */
+function jsBubbleSort() {
+    let arr = new Array(50000);
+    let textEl = document.querySelector('.index__jsbsort-text');
+    console.log('Starting JS bubble sort test...');
+
+    for (let index = 0; index < arr.length; index++) {
+        arr[index] = arr.length - index;
+    }
+
+    bSort(arr, arr.length);
+
+    console.log('Completed JS bubble sort test.');
+    textEl.innerHTML = completed;
+}
+
+/**
  * Calls WASM array allocation function and updates p tag text on completion.
  */
 function arrayAlloc() {
@@ -81,6 +119,14 @@ function floatDivision() {
     textEl.innerHTML = floatDivisionTest()
 }
 
+/**
+ * Calls WASM bubble sort function and updates p tag text on completion.
+ */
+function bubbleSort() {
+    let textEl = document.querySelector('.index__gobubblesort-text');
+    textEl.innerHTML = bubbleSortTest()
+}
+
 // Await document ready state, then add click event listeners.
 let tid = setInterval(function () {
     if (document.readyState !== 'complete') return;
@@ -93,4 +139,7 @@ let tid = setInterval(function () {
 
     let floatBtn = document.querySelector('.index__gofloat-btn');
     floatBtn.addEventListener('click', floatDivision);
+
+    let bubbleSortBtn = document.querySelector('.index__gobubblesort-btn');
+    bubbleSortBtn.addEventListener('click', bubbleSort);
 }, 100);
