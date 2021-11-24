@@ -2,7 +2,6 @@
 
 // Constants
 const maxInt = 2147483647;
-const arraySize = 50000000;
 const completed = 'Complete';
 
 
@@ -25,22 +24,8 @@ function bSort(arr, n) {
 }
 /** END PRIVATE METHODS **/
 
-/**
- * JavaScript array allocation test.
- */
-function jsArrayAlloc() {
-    let arr = new Array(arraySize);
-    let textEl = document.querySelector('.index__jsarray-text');
-    console.log('Starting JS array allocation test...');
 
-    for (let index = 0; index < arr.length; index++) {
-        arr[index] = index;
-    }
-
-    console.log('Completed JS array allocation test.');
-    textEl.innerHTML = completed;
-}
-
+// TODO: MULTIPLY TASKS BY 100
 /**
  * JavaScript addition test.
  */
@@ -54,26 +39,6 @@ function jsAdditionAlloc() {
     }
 
     console.log('Completed JS addition test.');
-    textEl.innerHTML = completed;
-}
-
-/**
- * JavaScript array allocation with float point division test.
- */
-function jsFloatDivision() {
-    let arr = new Array(arraySize);
-    let textEl = document.querySelector('.index__jsfloat-text');
-    console.log('Starting JS float division test...');
-
-    for (let index = 0; index < arr.length; index++) {
-        arr[index] = index;
-    }
-
-    for (let index = 0; index < arr.length; index++) {
-        arr[index] = index / 3.1415;
-    }
-
-    console.log('Completed JS float division test.');
     textEl.innerHTML = completed;
 }
 
@@ -95,12 +60,36 @@ function jsBubbleSort() {
     textEl.innerHTML = completed;
 }
 
+async function sha256(message, textEl) {
+    // encode as UTF-8
+    const msgBuffer = new TextEncoder().encode(message);                    
+
+    // hash the message
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+    // convert ArrayBuffer to Array
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+    // convert bytes to hex string                  
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    console.log('Completed JS hash test.');
+    textEl.innerHTML = completed;
+    return hashHex;
+}
+
 /**
- * Calls WASM array allocation function and updates p tag text on completion.
+ * JavaScript hash after 250k string creation.
  */
-function arrayAlloc() {
-    let textEl = document.querySelector('.index__goarray-text');
-    textEl.innerHTML = arrayTest();
+function jsHash() {
+    let textEl = document.querySelector('.index__jshash-text');
+    console.log('Starting JS hash test...');
+    
+    let s = '';
+    for (let index = 0; index < 250000; index++) {
+        s = s.concat('A');
+    }
+
+    sha256(s, textEl);
 }
 
 /**
@@ -112,14 +101,6 @@ function addition() {
 }
 
 /**
- * Calls WASM float division function and updates p tag text on completion.
- */
-function floatDivision() {
-    let textEl = document.querySelector('.index__gofloat-text');
-    textEl.innerHTML = floatDivisionTest()
-}
-
-/**
  * Calls WASM bubble sort function and updates p tag text on completion.
  */
 function bubbleSort() {
@@ -127,19 +108,34 @@ function bubbleSort() {
     textEl.innerHTML = bubbleSortTest()
 }
 
+/**
+ * Calls WASM hash function and updates p tag text on completion.
+ */
+function hash() {
+    let textEl = document.querySelector('.index__gohash-text');
+    textEl.innerHTML = hashTest()
+}
+
 // Await document ready state, then add click event listeners.
 let tid = setInterval(function () {
     if (document.readyState !== 'complete') return;
     clearInterval(tid);
-    let arrayBtn = document.querySelector('.index__goarray-btn');
-    arrayBtn.addEventListener('click', arrayAlloc);
 
-    let additionBtn = document.querySelector('.index__goaddition-btn');
-    additionBtn.addEventListener('click', addition);
+    let jsAdditionBtn = document.querySelector('.index__jsaddition-btn');
+    jsAdditionBtn.addEventListener('click', jsAdditionAlloc);
 
-    let floatBtn = document.querySelector('.index__gofloat-btn');
-    floatBtn.addEventListener('click', floatDivision);
+    let jsBubbleSortBtn = document.querySelector('.index__jsbsort-btn');
+    jsBubbleSortBtn.addEventListener('click', jsBubbleSort);
 
-    let bubbleSortBtn = document.querySelector('.index__gobubblesort-btn');
-    bubbleSortBtn.addEventListener('click', bubbleSort);
+    let jsHashBtn = document.querySelector('.index__jshash-btn');
+    jsHashBtn.addEventListener('click', jsHash);
+    
+    let goAdditionBtn = document.querySelector('.index__goaddition-btn');
+    goAdditionBtn.addEventListener('click', addition);
+
+    let goBubbleSortBtn = document.querySelector('.index__gobubblesort-btn');
+    goBubbleSortBtn.addEventListener('click', bubbleSort);
+
+    let goHashBtn = document.querySelector('.index__gohash-btn');
+    goHashBtn.addEventListener('click', hash);
 }, 100);
