@@ -70,7 +70,7 @@ async function sha256(message, callCount, textEl) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-    if (callCount === repeatTaskAmount - 1) {
+    if (callCount >= repeatTaskAmount - 1) {
         console.log('Completed JS hash test.');
         textEl.innerHTML = completed;
     }
