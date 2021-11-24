@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/sha256"
-	"fmt"
 	"strings"
 	"syscall/js"
 )
@@ -10,6 +9,7 @@ import (
 // Global variables
 const maximumCount int = 2147483647
 const completeString string = "Complete"
+const repeatTaskAmount int = 10
 
 // Local bubble sort function.
 func BubbleSort(array []int64) []int64 {
@@ -26,14 +26,13 @@ func BubbleSort(array []int64) []int64 {
 // Maximum integer addition function.
 func additionTestWrapper() js.Func {
 	additionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		fmt.Println("Starting integer addition test...")
-		var currentCount int64 = 0
-
-		for i := 0; i < maximumCount; i++ {
-			currentCount++
+		for j := 0; j < repeatTaskAmount; j++ {
+			var currentCount int64 = 0
+			for i := 0; i < maximumCount; i++ {
+				currentCount++
+			}
 		}
 
-		fmt.Println("Completed integer addition test.")
 		return completeString
 	})
 
@@ -43,17 +42,17 @@ func additionTestWrapper() js.Func {
 // Array allocation with float division performing function.
 func bubbleSortWrapper() js.Func {
 	floatDivisionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		fmt.Println("Starting bubble sort test...")
-		var arr [50000]int64
-		var arrLen int64 = int64(len(arr))
+		for j := 0; j < repeatTaskAmount; j++ {
+			var arr [50000]int64
+			var arrLen int64 = int64(len(arr))
 
-		for i := 0; i < len(arr); i++ {
-			arr[i] = arrLen - int64(i)
+			for i := 0; i < len(arr); i++ {
+				arr[i] = arrLen - int64(i)
+			}
+
+			BubbleSort(arr[:])
 		}
 
-		BubbleSort(arr[:])
-
-		fmt.Println("Completed bubble sort test.")
 		return completeString
 	})
 
@@ -63,12 +62,13 @@ func bubbleSortWrapper() js.Func {
 // Function to create 250k char string and hash to sha256.
 func hashWrapper() js.Func {
 	hashFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		var s strings.Builder
-		for i := 0; i < 250000; i++ {
-			s.WriteRune('A')
+		for j := 0; j < repeatTaskAmount; j++ {
+			var s strings.Builder
+			for i := 0; i < 250000; i++ {
+				s.WriteRune('A')
+			}
+			sha256.Sum256([]byte(s.String()))
 		}
-
-		sha256.Sum256([]byte(s.String()))
 		return completeString
 	})
 

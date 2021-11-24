@@ -3,10 +3,11 @@
 // Constants
 const maxInt = 2147483647;
 const completed = 'Complete';
+const repeatTaskAmount = 10;
 
 
 /**  BEGIN PRIVATE METHODS **/
-function swap(arr, xp, yp){
+function swap(arr, xp, yp) {
     var temp = arr[xp];
     arr[xp] = arr[yp];
     arr[yp] = temp;
@@ -30,14 +31,15 @@ function bSort(arr, n) {
  * JavaScript addition test.
  */
 function jsAdditionAlloc() {
-    let counter = 0;
-    let textEl = document.querySelector('.index__jsaddition-text');
     console.log('Starting JS addition test...');
+    let textEl = document.querySelector('.index__jsaddition-text');
+    for (let index = 0; index < repeatTaskAmount; index++) {
+        let counter = 0;
 
-    while (counter < maxInt) {
-        counter += 1;
+        while (counter < maxInt) {
+            counter += 1;
+        }
     }
-
     console.log('Completed JS addition test.');
     textEl.innerHTML = completed;
 }
@@ -46,34 +48,32 @@ function jsAdditionAlloc() {
  * JavaScript array allocation and bubble sort.
  */
 function jsBubbleSort() {
-    let arr = new Array(50000);
-    let textEl = document.querySelector('.index__jsbsort-text');
     console.log('Starting JS bubble sort test...');
+    let textEl = document.querySelector('.index__jsbsort-text');
+    for (let index = 0; index < repeatTaskAmount; index++) {
+        let arr = new Array(50000);
 
-    for (let index = 0; index < arr.length; index++) {
-        arr[index] = arr.length - index;
+        for (let index = 0; index < arr.length; index++) {
+            arr[index] = arr.length - index;
+        }
+
+        bSort(arr, arr.length);
     }
-
-    bSort(arr, arr.length);
-
-    console.log('Completed JS bubble sort test.');
+    console.log('Starting JS bubble sort test...');
     textEl.innerHTML = completed;
 }
 
-async function sha256(message, textEl) {
-    // encode as UTF-8
-    const msgBuffer = new TextEncoder().encode(message);                    
-
-    // hash the message
+async function sha256(message, callCount, textEl) {
+    // encode as UTF-8, hash the message, convert ArrayBuffer to Array, convert bytes to hex string
+    const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-
-    // convert ArrayBuffer to Array
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-
-    // convert bytes to hex string                  
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    console.log('Completed JS hash test.');
-    textEl.innerHTML = completed;
+
+    if (callCount === repeatTaskAmount - 1) {
+        console.log('Completed JS hash test.');
+        textEl.innerHTML = completed;
+    }
     return hashHex;
 }
 
@@ -83,37 +83,45 @@ async function sha256(message, textEl) {
 function jsHash() {
     let textEl = document.querySelector('.index__jshash-text');
     console.log('Starting JS hash test...');
-    
-    let s = '';
-    for (let index = 0; index < 250000; index++) {
-        s = s.concat('A');
-    }
 
-    sha256(s, textEl);
+    for (let index = 0; index < repeatTaskAmount; index++) {
+        let s = '';
+        for (let index = 0; index < 250000; index++) {
+            s = s.concat('A');
+        }
+
+        sha256(s, index, textEl);
+    }
 }
 
 /**
  * Calls WASM addition function and updates p tag text on completion.
  */
 function addition() {
+    console.log('Starting Go addition test...');
     let textEl = document.querySelector('.index__goaddition-text');
     textEl.innerHTML = additionTest();
+    console.log('Completed Go addition test.');
 }
 
 /**
  * Calls WASM bubble sort function and updates p tag text on completion.
  */
 function bubbleSort() {
+    console.log('Starting Go bubble sort test...');
     let textEl = document.querySelector('.index__gobubblesort-text');
     textEl.innerHTML = bubbleSortTest()
+    console.log('Completed Go bubble sort test.');
 }
 
 /**
  * Calls WASM hash function and updates p tag text on completion.
  */
 function hash() {
+    console.log('Starting Go hash test...');
     let textEl = document.querySelector('.index__gohash-text');
     textEl.innerHTML = hashTest()
+    console.log('Completed Go hash test.');
 }
 
 // Await document ready state, then add click event listeners.
@@ -129,7 +137,7 @@ let tid = setInterval(function () {
 
     let jsHashBtn = document.querySelector('.index__jshash-btn');
     jsHashBtn.addEventListener('click', jsHash);
-    
+
     let goAdditionBtn = document.querySelector('.index__goaddition-btn');
     goAdditionBtn.addEventListener('click', addition);
 
