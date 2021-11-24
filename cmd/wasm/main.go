@@ -1,68 +1,15 @@
 package main
 
 import (
-	"fmt"
+	"crypto/sha256"
+	"strings"
 	"syscall/js"
 )
 
 // Global variables
 const maximumCount int = 2147483647
 const completeString string = "Complete"
-
-// Array allocation wrapper function.
-func arrayAllocWrapper() js.Func {
-	arrayAllocFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		fmt.Println("Starting array allocation test...")
-		var arr [50000000]int64
-
-		for i := 0; i < len(arr); i++ {
-			arr[i] = int64(i)
-		}
-
-		fmt.Println("Completed array allocation test.")
-		return completeString
-	})
-
-	return arrayAllocFunc
-}
-
-// Maximum integer addition function.
-func additionTestWrapper() js.Func {
-	additionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		fmt.Println("Starting integer addition test...")
-		var currentCount int64 = 0
-
-		for i := 0; i < maximumCount; i++ {
-			currentCount++
-		}
-
-		fmt.Println("Completed integer addition test.")
-		return completeString
-	})
-
-	return additionFunc
-}
-
-// Array allocation with float division performing function.
-func floatDivisionWrapper() js.Func {
-	floatDivisionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		fmt.Println("Starting floating division test...")
-		var arr [50000000]float64
-
-		for i := 0; i < len(arr); i++ {
-			arr[i] = float64(i)
-		}
-
-		for i := 0; i < len(arr); i++ {
-			arr[i] = arr[i] / 3.1415
-		}
-
-		fmt.Println("Completed floating division test.")
-		return completeString
-	})
-
-	return floatDivisionFunc
-}
+const repeatTaskAmount int = 10
 
 // Local bubble sort function.
 func BubbleSort(array []int64) []int64 {
@@ -76,31 +23,62 @@ func BubbleSort(array []int64) []int64 {
 	return array
 }
 
+// Maximum integer addition function.
+func additionTestWrapper() js.Func {
+	additionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		for j := 0; j < repeatTaskAmount; j++ {
+			var currentCount int64 = 0
+			for i := 0; i < maximumCount; i++ {
+				currentCount++
+			}
+		}
+
+		return completeString
+	})
+
+	return additionFunc
+}
+
 // Array allocation with float division performing function.
 func bubbleSortWrapper() js.Func {
 	floatDivisionFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		fmt.Println("Starting bubble sort test...")
-		var arr [50000]int64
-		var arrLen int64 = int64(len(arr))
+		for j := 0; j < repeatTaskAmount; j++ {
+			var arr [50000]int64
+			var arrLen int64 = int64(len(arr))
 
-		for i := 0; i < len(arr); i++ {
-			arr[i] = arrLen - int64(i)
+			for i := 0; i < len(arr); i++ {
+				arr[i] = arrLen - int64(i)
+			}
+
+			BubbleSort(arr[:])
 		}
 
-		BubbleSort(arr[:])
-
-		fmt.Println("Completed bubble sort test.")
 		return completeString
 	})
 
 	return floatDivisionFunc
 }
 
+// Function to create 250k char string and hash to sha256.
+func hashWrapper() js.Func {
+	hashFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		for j := 0; j < repeatTaskAmount; j++ {
+			var s strings.Builder
+			for i := 0; i < 250000; i++ {
+				s.WriteRune('A')
+			}
+			sha256.Sum256([]byte(s.String()))
+		}
+		return completeString
+	})
+
+	return hashFunc
+}
+
 // Main function.
 func main() {
-	js.Global().Set("arrayTest", arrayAllocWrapper())
 	js.Global().Set("additionTest", additionTestWrapper())
-	js.Global().Set("floatDivisionTest", floatDivisionWrapper())
 	js.Global().Set("bubbleSortTest", bubbleSortWrapper())
+	js.Global().Set("hashTest", hashWrapper())
 	<-make(chan bool)
 }
