@@ -63,7 +63,6 @@ function jsBubbleSort() {
     textEl.innerHTML = completed;
 }
 
-<<<<<<< HEAD
 async function sha256(message, callCount, textEl) {
     // encode as UTF-8, hash the message, convert ArrayBuffer to Array, convert bytes to hex string
     const msgBuffer = new TextEncoder().encode(message);
@@ -78,13 +77,9 @@ async function sha256(message, callCount, textEl) {
     return hashHex;
 }
 
-=======
-// --------------------- GO
->>>>>>> rust
 /**
  * JavaScript hash after 250k string creation.
  */
-<<<<<<< HEAD
 function jsHash() {
     let textEl = document.querySelector('.index__jshash-text');
     console.log('Starting JS hash test...');
@@ -97,11 +92,6 @@ function jsHash() {
 
         sha256(s, index, textEl);
     }
-=======
- function arrayAlloc() {
-    let textEl = document.querySelector('.index__goarray-text');
-    textEl.innerHTML = arrayTest();
->>>>>>> rust
 }
 
 /**
@@ -122,7 +112,6 @@ function addition() {
     console.log('Completed Go addition test.');
 }
 
-<<<<<<< HEAD
 /**
  * Calls WASM bubble sort function and updates p tag text on completion.
  */
@@ -142,9 +131,6 @@ function hash() {
     textEl.innerHTML = hashTest()
     console.log('Completed Go hash test.');
 }
-=======
-
->>>>>>> rust
 
 // Await document ready state, then add click event listeners.
 let tid = setInterval(function () {
