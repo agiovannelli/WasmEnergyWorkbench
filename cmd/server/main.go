@@ -10,5 +10,7 @@ func main() {
 	if err != nil {
 		fmt.Println("Failed to start server", err)
 		return
+	} else {
+		fmt.Println("server started")
 	}
 }

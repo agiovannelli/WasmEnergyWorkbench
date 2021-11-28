@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/home/samonjourus/Documents/programming/WasmEnergyWorkbench/assets/rustsrc/target/wasm32-unknown-unknown/release/build/typenum-1828264dedfd9e3b/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/home/samonjourus/Documents/programming/WasmEnergyWorkbench/assets/rustsrc/target/wasm32-unknown-unknown/release/build/typenum-1828264dedfd9e3b/out/op.rs
