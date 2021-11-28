@@ -57,12 +57,21 @@ function jsFloatDivision() {
     textEl.innerHTML = completed;
 }
 
+// --------------------- GO
 /**
  * Calls WASM array allocation function and updates p tag text on completion.
  */
-function arrayAlloc() {
+ function arrayAlloc() {
     let textEl = document.querySelector('.index__goarray-text');
     textEl.innerHTML = arrayTest();
+}
+
+/**
+ * Calls WASM float division function and updates p tag text on completion.
+ */
+ function floatDivision() {
+    let textEl = document.querySelector('.index__gofloat-text');
+    textEl.innerHTML = floatDivisionTest()
 }
 
 /**
@@ -73,13 +82,7 @@ function addition() {
     textEl.innerHTML = additionTest();
 }
 
-/**
- * Calls WASM float division function and updates p tag text on completion.
- */
-function floatDivision() {
-    let textEl = document.querySelector('.index__gofloat-text');
-    textEl.innerHTML = floatDivisionTest()
-}
+
 
 // Await document ready state, then add click event listeners.
 let tid = setInterval(function () {
@@ -94,3 +97,4 @@ let tid = setInterval(function () {
     let floatBtn = document.querySelector('.index__gofloat-btn');
     floatBtn.addEventListener('click', floatDivision);
 }, 100);
+

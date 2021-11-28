@@ -18,6 +18,49 @@
 			go.run(result.instance);
 		});
 	</script>
+	<script type="module"> 
+		//import * as RustWASM from "./rustsrc/pkg/rustsrc.js";
+		import init, {bubbleSortTest, hashTest, arrayAdditionTest} from "./rustsrc/pkg/rustsrc.js"
+
+		await init()
+		/**
+		 * Calls WASM addition function and updates p tag text on completion.
+		 */
+		function additionRust() {
+			let textEl = document.querySelector('.index__rustaddition-text');
+			textEl.innerHTML = arrayAddition();
+		}
+
+		/**
+		 * Calls WASM float division function and updates p tag text on completion.
+		 */
+		function floatDivisionRust() {
+			let textEl = document.querySelector('.index__rustfloat-text');
+			textEl.innerHTML = arrayDivision();
+		}
+
+		/**
+		 * Calls WASM array allocation function and updates p tag text on completion.
+		 */
+		function arrayAllocRust() {
+			let textEl = document.querySelector('.index__rustarray-text');
+			textEl.innerHTML = arrayInit();
+		}
+
+		// Await document ready state, then add click event listeners.
+		let tidRust = setInterval(function () {
+			if (document.readyState !== 'complete') return;
+			clearInterval(tid);
+			let arrayBtn = document.querySelector('.index__rustarray-btn');
+			arrayBtn.addEventListener('click', arrayAllocRust);
+
+			let additionBtn = document.querySelector('.index__rustaddition-btn');
+			additionBtn.addEventListener('click', additionRust);
+
+			let floatBtn = document.querySelector('.index__rustfloat-btn');
+			floatBtn.addEventListener('click', floatDivisionRust);
+		}, 100);
+	</script>
 	<script src="index.js"></script>
 </head>
 
@@ -60,6 +103,8 @@
 					</div>
 				</div>
 			</div>
+
+			
 			<div class="col">
 				<h2>Go</h2>
 				<div class="row">
@@ -91,7 +136,36 @@
 				</div>
 			</div>
 			<div class="col">
+
+
 				<h2>Rust</h2>
+				<div class="row">
+					<div class="col index__testing-col">
+						<button class="btn btn-outline-primary index__testing-btn index__rustarray-btn">Array
+							allocation</button>
+					</div>
+					<div class="col">
+						<p class="index__testing-text index__rustarray-text"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col index__testing-col">
+						<button class="btn btn-outline-primary index__testing-btn index__rustaddition-btn">Integer
+							addition</button>
+					</div>
+					<div class="col">
+						<p class="index__testing-text index__rustaddition-text"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col index__testing-col">
+						<button class="btn btn-outline-primary index__testing-btn index__rustfloat-btn">Floating point
+							division</button>
+					</div>
+					<div class="col">
+						<p class="index__testing-text index__rustfloat-text"></p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
