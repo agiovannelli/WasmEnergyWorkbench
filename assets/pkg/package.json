@@ -1,0 +1,21 @@
+{
+  "name": "rustsrc",
+  "collaborators": [
+    "bsta7599@vt.edu"
+  ],
+  "description": "test pack for testing energy consumption and execution time",
+  "version": "0.1.0",
+  "license": "MIT/Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourgithubusername/hello-wasm"
+  },
+  "files": [
+    "rustsrc_bg.wasm",
+    "rustsrc.js",
+    "rustsrc.d.ts"
+  ],
+  "module": "rustsrc.js",
+  "types": "rustsrc.d.ts",
+  "sideEffects": false
+}
