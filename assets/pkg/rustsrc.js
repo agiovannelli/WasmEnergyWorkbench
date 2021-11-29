@@ -4,25 +4,19 @@ let wasm;
 /**
 */
 export function bubbleSortTest() {
-    console.time('rustBubbleSort');
     wasm.bubbleSortTest();
-    console.timeEnd('rustBubbleSort');
 }
 
 /**
 */
 export function arrayAdditionTest() {
-    console.time('rustArrayAdditionTest');
     wasm.arrayAdditionTest();
-    console.timeEnd('rustArrayAdditionTest');
 }
 
 /**
 */
 export function hashTest() {
-    console.time('rustHashTest');
     wasm.hashTest();
-    console.timeEnd('rustHashTest');
 }
 
 async function load(module, imports) {
