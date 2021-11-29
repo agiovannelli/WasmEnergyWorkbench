@@ -31,6 +31,7 @@ function bSort(arr, n) {
  * JavaScript addition test.
  */
 function jsAdditionAlloc() {
+    console.time('jsAdditionAlloc');
     console.log('Starting JS addition test...');
     let textEl = document.querySelector('.index__jsaddition-text');
     for (let index = 0; index < repeatTaskAmount; index++) {
@@ -42,12 +43,14 @@ function jsAdditionAlloc() {
     }
     console.log('Completed JS addition test.');
     textEl.innerHTML = completed;
+    console.timeEnd('jsAdditionAlloc');
 }
 
 /**
  * JavaScript array allocation and bubble sort.
  */
 function jsBubbleSort() {
+    console.time('jsBubbleSort');
     console.log('Starting JS bubble sort test...');
     let textEl = document.querySelector('.index__jsbsort-text');
     for (let index = 0; index < repeatTaskAmount; index++) {
@@ -59,8 +62,9 @@ function jsBubbleSort() {
 
         bSort(arr, arr.length);
     }
-    console.log('Starting JS bubble sort test...');
+    console.log('Completed JS bubble sort test.');
     textEl.innerHTML = completed;
+    console.timeEnd('jsBubbleSort');
 }
 
 async function sha256(message, callCount, textEl) {
@@ -73,6 +77,7 @@ async function sha256(message, callCount, textEl) {
     if (callCount >= repeatTaskAmount - 1) {
         console.log('Completed JS hash test.');
         textEl.innerHTML = completed;
+        console.timeEnd('jsHash');
     }
     return hashHex;
 }
@@ -81,8 +86,9 @@ async function sha256(message, callCount, textEl) {
  * JavaScript hash after 250k string creation.
  */
 function jsHash() {
-    let textEl = document.querySelector('.index__jshash-text');
+    console.time('jsHash');
     console.log('Starting JS hash test...');
+    let textEl = document.querySelector('.index__jshash-text');
 
     for (let index = 0; index < repeatTaskAmount; index++) {
         let s = '';
@@ -95,20 +101,14 @@ function jsHash() {
 }
 
 /**
- * Calls WASM float division function and updates p tag text on completion.
- */
- function floatDivision() {
-    let textEl = document.querySelector('.index__gofloat-text');
-    textEl.innerHTML = floatDivisionTest()
-}
-
-/**
  * Calls WASM addition function and updates p tag text on completion.
  */
 function addition() {
+    console.time('goAddition');
     console.log('Starting Go addition test...');
     let textEl = document.querySelector('.index__goaddition-text');
     textEl.innerHTML = additionTest();
+    console.timeEnd('goAddition');
     console.log('Completed Go addition test.');
 }
 
@@ -116,9 +116,11 @@ function addition() {
  * Calls WASM bubble sort function and updates p tag text on completion.
  */
 function bubbleSort() {
+    console.time('goBubbleSort');
     console.log('Starting Go bubble sort test...');
     let textEl = document.querySelector('.index__gobubblesort-text');
     textEl.innerHTML = bubbleSortTest()
+    console.timeEnd('goBubbleSort');
     console.log('Completed Go bubble sort test.');
 }
 
@@ -126,9 +128,11 @@ function bubbleSort() {
  * Calls WASM hash function and updates p tag text on completion.
  */
 function hash() {
+    console.time('goHash');
     console.log('Starting Go hash test...');
     let textEl = document.querySelector('.index__gohash-text');
     textEl.innerHTML = hashTest()
+    console.timeEnd('goHash');
     console.log('Completed Go hash test.');
 }
 
