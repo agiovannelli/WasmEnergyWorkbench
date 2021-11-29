@@ -27,24 +27,30 @@
 		 * Calls WASM addition function and updates p tag text on completion.
 		 */
 		function additionRust() {
+    		console.time('rustAddition');
 			let textEl = document.querySelector('.index__rustaddition-btn');
 			textEl.innerHTML = arrayAdditionTest();
+    		console.timeEnd('rustAddition');
 		}
 
 		/**
 		 * Calls WASM float division function and updates p tag text on completion.
 		 */
 		function bubbleSortRust() {
+    		console.time('rustBuubleSory');
 			let textEl = document.querySelector('.index__rustbubblesort-btn');
 			textEl.innerHTML = bubbleSortTest();
+    		console.timeEnd('rustBuubleSory');
 		}
 
 		/**
 		 * Calls WASM array allocation function and updates p tag text on completion.
 		 */
 		function hashRust() {
+    		console.time('rustHash');
 			let textEl = document.querySelector('.index__rusthash-btn');
 			textEl.innerHTML = hashTest();
+    		console.timeEnd('rustHash');
 		}
 
 		// Await document ready state, then add click event listeners.

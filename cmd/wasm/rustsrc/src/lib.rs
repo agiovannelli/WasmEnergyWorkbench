@@ -35,7 +35,7 @@ pub fn hashTest() {
     let mut count = 0;
     while count < 10 {
 
-        let string = "hello world".repeat(250000);
+        let string = "A".repeat(250000);
 
         let mut hasher = Sha256::new();
         hasher.update(string.as_bytes());
