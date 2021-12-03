@@ -27,30 +27,33 @@
 		 * Calls WASM addition function and updates p tag text on completion.
 		 */
 		function additionRust() {
-    		console.time('rustAddition');
-			let textEl = document.querySelector('.index__rustaddition-btn');
-			textEl.innerHTML = arrayAdditionTest();
-    		console.timeEnd('rustAddition');
+    		let startTime = window.performance.now();
+			let textEl = document.querySelector('.index__rustaddition-text');
+			arrayAdditionTest();
+    		let endTime = window.performance.now();
+			textEl.innerHTML = `${endTime - startTime}ms`;
 		}
 
 		/**
 		 * Calls WASM float division function and updates p tag text on completion.
 		 */
 		function bubbleSortRust() {
-    		console.time('rustBuubleSory');
-			let textEl = document.querySelector('.index__rustbubblesort-btn');
-			textEl.innerHTML = bubbleSortTest();
-    		console.timeEnd('rustBuubleSory');
+    		let startTime = window.performance.now();
+			let textEl = document.querySelector('.index__rustbubblesort-text');
+			bubbleSortTest();
+    		let endTime = window.performance.now();
+			textEl.innerHTML = `${endTime - startTime}ms`;
 		}
 
 		/**
 		 * Calls WASM array allocation function and updates p tag text on completion.
 		 */
 		function hashRust() {
-    		console.time('rustHash');
-			let textEl = document.querySelector('.index__rusthash-btn');
-			textEl.innerHTML = hashTest();
-    		console.timeEnd('rustHash');
+    		let startTime = window.performance.now();
+			let textEl = document.querySelector('.index__rusthash-text');
+			hashTest();
+    		let endTime = window.performance.now();
+			textEl.innerHTML = `${endTime - startTime}ms`;
 		}
 
 		// Await document ready state, then add click event listeners.
@@ -74,7 +77,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 class="index__h1">Welcome to WebAssembly Energy Workbench!</h1>
+				<h1 class="index__h1">Welcome to WebAssembly Workbench!</h1>
 				<p>Please click one of the following buttons to test its corresponding functionality.</p>
 			</div>
 		</div>

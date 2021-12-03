@@ -2,7 +2,6 @@
 
 // Constants
 const maxInt = 2147483647;
-const completed = 'Complete';
 const repeatTaskAmount = 10;
 
 
@@ -129,7 +128,7 @@ function sha256(ascii) {
  * JavaScript addition test.
  */
 function jsAdditionAlloc() {
-    console.time('jsAdditionAlloc');
+    let startTime = window.performance.now();
     console.log('Starting JS addition test...');
     let textEl = document.querySelector('.index__jsaddition-text');
     for (let index = 0; index < repeatTaskAmount; index++) {
@@ -140,15 +139,15 @@ function jsAdditionAlloc() {
         }
     }
     console.log('Completed JS addition test.');
-    textEl.innerHTML = completed;
-    console.timeEnd('jsAdditionAlloc');
+    let endTime = window.performance.now();
+    textEl.innerHTML = `${endTime - startTime}ms`;
 }
 
 /**
  * JavaScript array allocation and bubble sort.
  */
 function jsBubbleSort() {
-    console.time('jsBubbleSort');
+    let startTime = window.performance.now();
     console.log('Starting JS bubble sort test...');
     let textEl = document.querySelector('.index__jsbsort-text');
     for (let index = 0; index < repeatTaskAmount; index++) {
@@ -161,15 +160,15 @@ function jsBubbleSort() {
         bSort(arr, arr.length);
     }
     console.log('Completed JS bubble sort test.');
-    textEl.innerHTML = completed;
-    console.timeEnd('jsBubbleSort');
+    let endTime = window.performance.now();
+    textEl.innerHTML = `${endTime - startTime}ms`;
 }
 
 /**
  * JavaScript hash after 250k string creation.
  */
 function jsHash() {
-    console.time('jsHash');
+    let startTime = window.performance.now();
     console.log('Starting JS hash test...');
     let textEl = document.querySelector('.index__jshash-text');
 
@@ -181,44 +180,48 @@ function jsHash() {
 
         sha256(s);
     }
-    textEl.innerHTML = completed;
-    console.timeEnd('jsHash');
+    console.log('Completed JS hash test.');
+    let endTime = window.performance.now();
+    textEl.innerHTML = `${endTime - startTime}ms`;
 }
 
 /**
  * Calls WASM addition function and updates p tag text on completion.
  */
 function addition() {
-    console.time('goAddition');
+    let startTime = window.performance.now();
     console.log('Starting Go addition test...');
     let textEl = document.querySelector('.index__goaddition-text');
-    textEl.innerHTML = additionTest();
-    console.timeEnd('goAddition');
+    additionTest();
     console.log('Completed Go addition test.');
+    let endTime = window.performance.now();
+    textEl.innerHTML = `${endTime - startTime}ms`;
 }
 
 /**
  * Calls WASM bubble sort function and updates p tag text on completion.
  */
 function bubbleSort() {
-    console.time('goBubbleSort');
+    let startTime = window.performance.now();
     console.log('Starting Go bubble sort test...');
     let textEl = document.querySelector('.index__gobubblesort-text');
-    textEl.innerHTML = bubbleSortTest()
-    console.timeEnd('goBubbleSort');
+    bubbleSortTest();
     console.log('Completed Go bubble sort test.');
+    let endTime = window.performance.now();
+    textEl.innerHTML = `${endTime - startTime}ms`;
 }
 
 /**
  * Calls WASM hash function and updates p tag text on completion.
  */
 function hash() {
-    console.time('goHash');
+    let startTime = window.performance.now();
     console.log('Starting Go hash test...');
     let textEl = document.querySelector('.index__gohash-text');
-    textEl.innerHTML = hashTest()
-    console.timeEnd('goHash');
+    hashTest();
     console.log('Completed Go hash test.');
+    let endTime = window.performance.now();
+    textEl.innerHTML = `${endTime - startTime}ms`;
 }
 
 // Await document ready state, then add click event listeners.
