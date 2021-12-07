@@ -6,7 +6,7 @@ use sha2::{Sha256, Digest};
 pub fn bubbleSortTest() {
     let mut count = 0;
     let mut _arr: [i64;50000] = [0;50000];
-    while count < 10 {
+    while count < 20 {
         println!("hello");
         for i in 0.._arr.len() {
             _arr[i] = (50000-i) as i64;
@@ -19,7 +19,7 @@ pub fn bubbleSortTest() {
 #[wasm_bindgen]
 pub fn arrayAdditionTest() {
     let mut count = 0;
-    while count < 10 {
+    while count < 10000 {
         let mut counter: i64 = 0;
         while counter < 2147483647 {
             counter += 1;
@@ -33,7 +33,7 @@ pub fn arrayAdditionTest() {
 pub fn hashTest() {
 
     let mut count = 0;
-    while count < 10 {
+    while count < 1000 {
 
         let string = "A".repeat(250000);
 
