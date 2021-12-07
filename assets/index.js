@@ -2,7 +2,7 @@
 
 // Constants
 const maxInt = 2147483647;
-const repeatTaskAmount = 10;
+const repeatTaskAmount = 20;
 
 
 /**  BEGIN PRIVATE METHODS **/

@@ -9,7 +9,7 @@ import (
 // Global variables
 const maximumCount int = 2147483647
 const completeString string = "Complete"
-const repeatTaskAmount int = 10
+const repeatTaskAmount int = 20
 
 // Local bubble sort function.
 func BubbleSort(array []int64) []int64 {
