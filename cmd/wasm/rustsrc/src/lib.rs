@@ -19,7 +19,7 @@ pub fn bubbleSortTest() {
 #[wasm_bindgen]
 pub fn arrayAdditionTest() {
     let mut count = 0;
-    while count < 10000 {
+    while count < 20 {
         let mut counter: i64 = 0;
         while counter < 2147483647 {
             counter += 1;
@@ -33,7 +33,7 @@ pub fn arrayAdditionTest() {
 pub fn hashTest() {
 
     let mut count = 0;
-    while count < 1000 {
+    while count < 20 {
 
         let string = "A".repeat(250000);
 
